@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>New Fruit</title>
+    <link rel="stylesheet" href="/app.css">    
+  </head>
+  <body>
+    <h1>New Fruit Page</h1>
+    <form action="/fruits" method="POST">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" />
+      <label for="color">Color</label>
+      <input type="text" name="color" id="color" />
+      <label for="isReadyToEat">Is Ready to Eat</label>
+      <input type="checkbox" name="readyToEat" id="isReadyToEat" />
+      <input type="submit" value="Create Fruit" />
+    </form>
+    <a href="/fruits">Back to Index</a>
+  </body>
+</html>

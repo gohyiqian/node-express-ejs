@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Index of Fruits</title>
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <h1>Index of Fruits</h1>
+    <nav>
+      <a href="/fruits/new">Create a New Fruit</a>
+    </nav>
+    <ul>
+    <% allFruits.forEach((fruit, index) => { %>
+      <li>
+    <a href="/fruits/<%=index%>"> <%= fruit.name %></a>
+    <!--  ADD DELETE FORM HERE-->
+    <form action="/fruits/<%= index %>?_method=DELETE" method="POST">
+     <input type="submit" value="DELETE"/>
+    </form>
+   </li>
+    <% }) %>
+    </ul>
+  </body>
+</html>
