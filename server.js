@@ -1,9 +1,12 @@
 // DEPENDENCIES
 const express = require("express");
-const app = express();
 require("dotenv").config();
+
+// CONFIGURATION
+const app = express();
 const port = process.env.PORT;
 
+// 'DATA'
 const fruits = require("./models/fruits");
 const plants = require("./models/plants");
 const isLoggedIn = require("./middleware/auth");
@@ -74,6 +77,17 @@ app.post("/products", (req, res) => {
   res.send(req.body);
 });
 
+app.get("/fruits/:index/edit", (req, res) => {
+  res.render(
+    "edit.ejs", //render views/edit.ejs
+    {
+      //pass in an object that contains
+      fruit: fruits[req.params.index], //the fruit object
+      index: req.params.index, //... and its index in the array
+    }
+  );
+});
+
 app.get("/fruits/:indexOfFruitsArray", (req, res) => {
   //   res.send(fruits[req.params.indexOfFruitsArray]);
   const params = req.params.indexOfFruitsArray;
@@ -124,7 +138,20 @@ app.delete("/fruits/:index", (req, res) => {
   res.redirect("/fruits"); //redirect back to index route
 });
 
-// APP LISTEN
+app.put("/fruits/:index", (req, res) => {
+  // :index is the index of our fruits array that we want to change
+  if (req.body.readyToEat === "on") {
+    //if checked, req.body.readyToEat is set to 'on'
+    req.body.readyToEat = true;
+  } else {
+    //if not checked, req.body.readyToEat is undefined
+    req.body.readyToEat = false;
+  }
+  fruits[req.params.index] = req.body; //in our fruits array, find the index that is specified in the url (:index).  Set that element to the value of req.body (the input data)
+  res.redirect("/fruits"); //redirect to the index page
+});
+
+// APP LISTENER
 app.listen(port, () => {
   console.log("I am listening for requests!!!");
 });
